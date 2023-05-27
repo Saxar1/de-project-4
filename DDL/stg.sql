@@ -52,9 +52,9 @@ CREATE TABLE stg.bonussystem_users (
 
 CREATE TABLE stg.couriers (
 	id serial4 NOT NULL,
-	object_id varchar NOT NULL,
-	object_value text NOT NULL,
-	CONSTRAINT couriers_object_id_uindex UNIQUE (object_id),
+	courier_id varchar NOT NULL,
+	courier_name varchar NOT NULL,
+	CONSTRAINT couriers_object_id_uindex UNIQUE (courier_id),
 	CONSTRAINT couriers_pkey PRIMARY KEY (id)
 );
 
@@ -67,9 +67,16 @@ CREATE TABLE stg.couriers (
 
 CREATE TABLE stg.deliveries (
 	id serial4 NOT NULL,
-	object_id varchar NOT NULL,
-	object_value text NOT NULL,
-	CONSTRAINT deliveries_object_id_uindex UNIQUE (object_id),
+	order_id text NOT NULL,
+	order_ts text NOT NULL,
+	delivery_id text NOT NULL,
+	courier_id text NOT NULL,
+	"address" text NOT NULL,
+	delivery_ts text NOT NULL,
+	rate text NOT NULL,
+	sum text NOT NULL,
+	tip_sum text NOT NULL,
+	CONSTRAINT deliveriry_id_uindex UNIQUE (delivery_id),
 	CONSTRAINT deliveries_pkey PRIMARY KEY (id)
 );
 
