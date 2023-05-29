@@ -15,7 +15,7 @@ log = logging.getLogger(__name__)
     schedule_interval='0/15 * * * *',
     start_date=pendulum.datetime(2022, 5, 5, tz="UTC"),
     catchup=False,
-    tags=['sprint5', 'origin', 'stg'],
+    tags=['sprint5', 'project', 'origin', 'stg'],
     is_paused_upon_creation=True
 )
 def project_sprint5_origin_to_stg_dag():

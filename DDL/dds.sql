@@ -8,25 +8,8 @@ CREATE TABLE dds.dm_couriers (
 	id serial4 NOT NULL,
 	courier_id varchar NOT NULL,
 	courier_name varchar NOT NULL,
+	CONSTRAINT dm_couriers_courier_id_unique UNIQUE (courier_id),
 	CONSTRAINT dm_couriers_pkey PRIMARY KEY (id)
-);
-
-
--- dds.dm_deliveries definition
-
--- Drop table
-
--- DROP TABLE dds.dm_deliveries;
-
-CREATE TABLE dds.dm_deliveries (
-	id serial4 NOT NULL,
-	delivery_id varchar NOT NULL,
-	address varchar NOT NULL,
-	delivery_ts timestamp NOT NULL,
-	rate numeric(14, 2) NOT NULL,
-	sum numeric(14, 2) NOT NULL,
-	tip_sum numeric(14, 2) NOT NULL,
-	CONSTRAINT dm_delivery_pkey PRIMARY KEY (id)
 );
 
 
@@ -110,11 +93,8 @@ CREATE TABLE dds.dm_orders (
 	user_id int4 NOT NULL,
 	restaurant_id int4 NOT NULL,
 	timestamp_id int4 NOT NULL,
-	courier_id int4 NOT NULL,
-	delivery_id int4 NOT NULL,
+	CONSTRAINT dm_orders_order_key_unique UNIQUE (order_key),
 	CONSTRAINT dm_orders_pkey PRIMARY KEY (id),
-	CONSTRAINT dm_orders_courier_id_fk FOREIGN KEY (courier_id) REFERENCES dds.dm_couriers(id),
-	CONSTRAINT dm_orders_delivery_id_fk FOREIGN KEY (delivery_id) REFERENCES dds.dm_deliveries(id),
 	CONSTRAINT dm_orders_restaurant_id_fk FOREIGN KEY (restaurant_id) REFERENCES dds.dm_restaurants(id),
 	CONSTRAINT dm_orders_timestamp_id_fk FOREIGN KEY (timestamp_id) REFERENCES dds.dm_timestamps(id),
 	CONSTRAINT dm_orders_user_id_fk FOREIGN KEY (user_id) REFERENCES dds.dm_users(id)
@@ -163,4 +143,26 @@ CREATE TABLE dds.fct_product_sales (
 	CONSTRAINT fct_product_sales_price_check CHECK ((price >= (0)::numeric)),
 	CONSTRAINT fct_product_sales_total_sum_check CHECK ((total_sum >= (0)::numeric)),
 	CONSTRAINT dm_products_product_id_fk FOREIGN KEY (product_id) REFERENCES dds.dm_products(id)
+);
+
+
+-- dds.dm_deliveries definition
+
+-- Drop table
+
+-- DROP TABLE dds.dm_deliveries;
+
+CREATE TABLE dds.dm_deliveries (
+	id serial4 NOT NULL,
+	order_id varchar NOT NULL,
+	delivery_id varchar NOT NULL,
+	courier_id varchar NOT NULL,
+	address varchar NOT NULL,
+	delivery_ts timestamp NOT NULL,
+	rate numeric(14, 2) NOT NULL,
+	sum numeric(14, 2) NOT NULL,
+	tip_sum numeric(14, 2) NOT NULL,
+	CONSTRAINT dm_delivery_pkey PRIMARY KEY (id),
+	CONSTRAINT dm_deliveries_courier_id_fk FOREIGN KEY (courier_id) REFERENCES dds.dm_couriers(courier_id),
+	CONSTRAINT dm_deliveries_order_id_fk FOREIGN KEY (order_id) REFERENCES dds.dm_orders(order_key)
 );

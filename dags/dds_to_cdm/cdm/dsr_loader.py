@@ -100,7 +100,7 @@ class DsrLoader:
         self.settings_repository = CdmEtlSettingsRepository()
         self.log = log
 
-    def load_fps(self):
+    def load_dsr(self):
         # открываем транзакцию.
         # Транзакция будет закоммичена, если код в блоке with пройдет успешно (т.е. без ошибок).
         # Если возникнет ошибка, произойдет откат изменений (rollback транзакции).
