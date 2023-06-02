@@ -40,11 +40,11 @@ def project_sprint5_dds_to_cdm_dag():
         dcl_loader.load_dcl()  # Вызываем функцию, которая перельет данные.
 
     # Инициализируем объявленные таски.
-    dsr_loader = load_dsr()
+    # dsr_loader = load_dsr()
     dcl_loader = load_dcl()
     
     # Далее задаем последовательность выполнения тасков.
-    dsr_loader  
+    # dsr_loader  
     dcl_loader
 
 stg_to_dds_dag = project_sprint5_dds_to_cdm_dag()
